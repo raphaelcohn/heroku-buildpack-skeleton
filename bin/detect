@@ -121,10 +121,17 @@ _program_commandLine_helpMessage()
 	_program_commandLine_helpMessage_examples="
   ${_program_name} BUILD_DIR
 "
+
+echo HELP
+exit 0
+
 }
 
 _program_commandLine_parse()
 {
+
+echo PARSE
+exit 0
 	heroku_validate_buildDirCommandLineParse "$@"
 }
 
@@ -144,9 +151,4 @@ _program_hack_around_heroku_not_recursively_checking_out_submodules_for_buildpac
 }
 _program_hack_around_heroku_not_recursively_checking_out_submodules_for_buildpacks
 
-echo HELLO2
-exit 0
-
-. "$_program_libPath"/shellfire/core/init.functions "$@" || true
-echo "HELLO"
-exit 0
+. "$_program_libPath"/shellfire/core/init.functions "$@"
