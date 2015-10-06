@@ -10,6 +10,7 @@ _program()
     heroku_detect()
     {
 		echo "HELLO WORLD"
+		exit 0
 		
 		local heroku_configurationFolderPath="$heroku_buildpack_buildDir"/"$heroku_configurationFolderName"
 		if ! core_path_isReadableAndSearchableFolderPath "$heroku_configurationFolderPath"; then
