@@ -24,14 +24,13 @@ _program_path="$([ "${_program_fattening_program_path+set}" = 'set' ] && printf 
 _program_libPath="${_program_path}/lib"
 _program_etcPath="${_program_path}/etc"
 _program_varPath="${_program_path}/var"
-_program_entrypoint='heroku_create'
+_program_entrypoint='heroku_deploy'
 
 _program_commandLine_parseInitialise()
 {
 	heroku_repository_default="$(pwd)"
 }
 
-# Move to a model where we source a file...
 _program_commandLine_helpMessage()
 {
 	_program_commandLine_helpMessage_usage="[OPTION]...
@@ -64,11 +63,6 @@ _program_commandLine_optionExists()
 	esac
 }
 
-_program_commandLine_processOptionWithoutArgument()
-{
-	:
-}
-
 _program_commandLine_processOptionWithArgument()
 {
 	case "$optionName" in
@@ -80,13 +74,6 @@ _program_commandLine_processOptionWithArgument()
 		;;
 		
 	esac
-}
-
-_program_commandLine_handleNonOptions()
-{
-	if [ $# -ne 0 ]; then
-		core_exitError $core_commandLine_exitCode_USAGE "There are no non-options"
-	fi
 }
 
 _program_commandLine_validate()
