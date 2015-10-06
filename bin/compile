@@ -15,7 +15,7 @@ _program()
 		heroku_buildpack_compile_delegateToMultiBuildpack
     }
 }
-
+set -x
 _program_path_find()
 {
 	if [ "${_program_fattening_program_path+set}" = 'set' ]; then
