@@ -145,3 +145,5 @@ _program_hack_around_heroku_not_recursively_checking_out_submodules_for_buildpac
 _program_hack_around_heroku_not_recursively_checking_out_submodules_for_buildpacks
 
 . "$_program_libPath"/shellfire/core/init.functions "$@"
+echo "HELLO"
+exit 0
