@@ -4,3 +4,6 @@
 [submodule "lib/shellfire/core"]
 	path = lib/shellfire/core
 	url = https://github.com/shellfire-dev/core
+[submodule "lib/shellfire/heroku"]
+	path = lib/shellfire/heroku
+	url = https://github.com/shellfire-dev/heroku.git

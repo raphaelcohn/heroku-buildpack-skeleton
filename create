@@ -9,10 +9,9 @@ _program()
 	core_usesIn heroku validate
     heroku_create()
     {
-		heroku_stack=cedar-14
-		heroku_remote=heroku
-		
+		heroku_setConstants
 		heroku_create_app
+		heroku_deploy
     }
 }
 
