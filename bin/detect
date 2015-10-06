@@ -119,8 +119,4 @@ _program_commandLine_parse()
 	heroku_validate_buildDirCommandLineParse "$@"
 }
 
-echo "HELLO WORLD 2: $@"
-set -x
-exit 0
-
 . "$_program_libPath"/shellfire/core/init.functions "$@"
