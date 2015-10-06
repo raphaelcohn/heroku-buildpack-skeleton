@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# This file is part of heroku-skeleton-buildpack. It is subject to the licence terms in the COPYRIGHT file found in the top-level directory of this distribution and at https://raw.githubusercontent.com/raphaelcohn/heroku-skeleton-buildpack/master/COPYRIGHT. No part of heroku-skeleton, including this file, may be copied, modified, propagated, or distributed except according to the terms contained in the COPYRIGHT file.
+# Copyright © 2015 The developers of heroku-skeleton-buildpack. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/raphaelcohn/heroku-skeleton-buildpack/master/COPYRIGHT.
+
+
+echo $1
+echo $2
+echo $3
+
+BUILD_DIR="$1"
+CACHE_DIR="$2"
+ENV_DIR="$3"
+
+# Original solution used heredocuments, which were then sourced; this does not work when /tmp is readonly,
+# even if TMPDIR is set elsewhere, as debian / ubuntu bash uses a hardcoded /tmp
+# http://stackoverflow.com/questions/1609423/using-sed-to-expand-environment-variables-inside-files
+template_createSedScriptOfEnvironmentVariableSubstitutions()
+{
+	env | sed 's/[\%]/\\&/g;s/\([^=]*\)=\(.*\)/s%${\1}%\2%g/'
+}
+
+template_templateFile()
+{
+	set +e
+	cat "$1" | sed -f <(template_createSedScriptOfEnvironmentVariableSubstitutions)
+	set -e
+}
+
+mkdir -m 0755 -p "$CACHE_DIR"
+
+rm -rf "$CACHE_DIR"/root/etc
+rsync -a -v --exclude=.gitignore "$BUILD_DIR"/heroku/root/ "$CACHE_DIR"/root/
+cp /etc/apt/trusted.gpg "$CACHE_DIR"/root/etc/apt
+rsync -a -v /etc/apt/trusted.gpg.d/ "$CACHE_DIR"/etc/apt/trusted.gpg.d/
+
+# Consider embedding this as a snippet / heredoc
+(
+	export CACHE_DIR
+	template_templateFile "$BUILD_DIR"/heroku/apt.conf.template >"$CACHE_DIR"/root/etc/apt/apt.conf
+)
+
+cp /etc/apt/sources.list "$CACHE_DIR"/root/etc/apt/sources.list
+rsync -a -v /etc/apt/preferences.d/ "$CACHE_DIR"/root/etc/apt/preferences.d/
+
+rsync -a -v /var/lib/dpkg/ "$CACHE_DIR"/root/var/lib/dpkg/
+
+# https://unix.stackexchange.com/questions/42567/how-to-install-program-locally-without-sudo-privileges
+# https://serverfault.com/questions/23734/is-there-any-way-to-get-apt-to-install-packages-to-my-home-directory
+APT_CONFIG="$CACHE_DIR"/root/etc/apt/apt.conf apt-get update
+
+# Need to run dpkg with --root="$CACHE_DIR"/root
+
+exit 0
