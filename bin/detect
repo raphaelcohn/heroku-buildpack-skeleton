@@ -124,9 +124,13 @@ _program_hack_around_heroku_not_recursively_checking_out_submodules_for_buildpac
 	# Found using 'env' & exit 0
 	# The environment contains the following special variables: USER_LOG_FILE  LOG_TOKEN  RUN_KEY  RECEIVE_DATA  STACK  BUILD_INFO  DEPLOY  LOG_FILE  GERM_PATH  REQUEST_ID  DYNO  SOURCE_VERSION
 	if [ "${DYNO+set}" = 'set' ]; then
+
+		# pdksh / mksh have problems with unsetting a variable that was never set...
+		unset CDPATH 1>/dev/null 2>/dev/null || true
 		
-		git --git-dir "$_program_path"/../.git submodule init
-		git --git-dir "$_program_path"/../.git submodule update --init --recursive
+		cd "$_program_path"/.. 1>/dev/null
+			git submodule update --init --recursive
+		cd - 1>/dev/null
 	fi
 }
 _program_hack_around_heroku_not_recursively_checking_out_submodules_for_buildpacks
