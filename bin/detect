@@ -3,15 +3,14 @@
 # Copyright © 2015 The developers of heroku-skeleton-buildpack. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/raphaelcohn/heroku-skeleton-buildpack/master/COPYRIGHT.
 
 
+echo "HELLO WORLD"
+exit 0
 _program()
 {
 	core_usesIn heroku
 	core_usesIn heroku validate buildpack
     heroku_detect()
     {
-		echo "HELLO WORLD"
-		exit 0
-		
 		local heroku_configurationFolderPath="$heroku_buildpack_buildDir"/"$heroku_configurationFolderName"
 		if ! core_path_isReadableAndSearchableFolderPath "$heroku_configurationFolderPath"; then
 			core_exitError $core_commandLine_exitCode_FAILURE "There is no heroku configuration folder '$heroku_configurationFolderName' in BUILD_DIR '$heroku_buildpack_buildDir'"
