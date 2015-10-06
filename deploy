@@ -34,6 +34,9 @@ _program_path_find()
 		
 		printf '%s' "$(pwd)"
 	else
+		# pdksh / mksh have problems with unsetting a variable that was never set...
+		unset CDPATH 1>/dev/null 2>/dev/null || true
+		
 		if command -v realpath 1>/dev/null 2>/dev/null; then
 			scriptPath=$(realpath "$0")
 			cd "${scriptPath%/*}" 1>/dev/null
@@ -42,9 +45,6 @@ _program_path_find()
 			unset scriptPath
 			return 0
 		fi
-		
-		# pdksh / mksh have problems with unsetting a variable that was never set...
-		unset CDPATH 1>/dev/null 2>/dev/null || true
 		
 		originalPath="$(pwd)"
 		scriptPath="$0"
@@ -76,11 +76,9 @@ _program_path_find()
 		unset linkName
 	fi
 }
-_program_path_find
 
-echo ${0%/*}
 _program_name='deploy'
-_program_namespace='heroku_deploy'
+_program_namespace='heroku'
 _program_version='unversioned'
 _program_package_or_build=''
 _program_path="$(_program_path_find)"
