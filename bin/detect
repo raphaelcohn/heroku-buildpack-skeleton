@@ -128,8 +128,9 @@ _program_commandLine_parse()
 	heroku_validate_buildDirCommandLineParse "$@"
 }
 
-_program_hack_around_heroku_not_recursively_checking_out_submodules_for_buildpacks()
+_program_hack_around_heroku()
 {
+	# (1) Not correctly checking out submodules
 	# Found using 'env' & exit 0
 	# The environment contains the following special variables: USER_LOG_FILE  LOG_TOKEN  RUN_KEY  RECEIVE_DATA  STACK  BUILD_INFO  DEPLOY  LOG_FILE  GERM_PATH  REQUEST_ID  DYNO  SOURCE_VERSION
 	if [ "${DYNO+set}" = 'set' ]; then
@@ -141,9 +142,11 @@ _program_hack_around_heroku_not_recursively_checking_out_submodules_for_buildpac
 			git submodule update --init --recursive 1>/dev/null 2>/dev/null
 		cd - 1>/dev/null
 		
-		_program_ignoreDependencies=yes
 	fi
+	
+	# (2) There is something wrong in the dependencies logic
+	_program_ignoreDependencies=yes
 }
-_program_hack_around_heroku_not_recursively_checking_out_submodules_for_buildpacks
+_program_hack_around_heroku
 
 . "$_program_libPath"/shellfire/core/init.functions "$@"
