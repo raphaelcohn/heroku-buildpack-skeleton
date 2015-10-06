@@ -11,29 +11,17 @@ _program()
     {
 		local heroku_configurationFolderPath="$heroku_buildpack_buildDir"/"$heroku_configurationFolderName"
 		if ! core_path_isReadableAndSearchableFolderPath "$heroku_configurationFolderPath"; then
-			echo "A"
-			exit 0
 			core_exitError $core_commandLine_exitCode_FAILURE "There is no heroku configuration folder '$heroku_configurationFolderName' in BUILD_DIR '$heroku_buildpack_buildDir'"
 		fi
 		
 		local heroku_buildpacksConfigurationFolderPath="$heroku_configurationFolderPath"/"$heroku_buildpacksConfigurationFolderName"
 		if ! core_path_isReadableAndSearchableFolderPath "$heroku_configurationFolderPath"; then
-			echo "B"
-			exit 0
 			core_exitError $core_commandLine_exitCode_FAILURE "There is no heroku buildpacks configuration folder '$heroku_buildpacksConfigurationFolderName' in BUILD_DIR/$heroku_configurationFolderName '$heroku_configurationFolderPath'"
 		fi
-		
-		# Interferes with https://elements.heroku.com/buildpacks/jessefulton/buildpack-procfile-select
-		#local procfilePath="$heroku_buildpacksConfigurationFolderPath"/Procfile
-		#if ! core_path_isReadableFilePath "$procfilePath"; then
-		#	core_exitError $core_commandLine_exitCode_FAILURE "There is no heroku 'Procfile' in configuration folder path '$heroku_buildpacksConfigurationFolderPath'"
-		#fi
 		
 		# We take over from https://github.com/heroku/heroku-buildpack-multi
 		local buildpacksFilePath="$heroku_buildpacksConfigurationFolderPath"/.buildpacks
 		if ! core_path_isReadableFilePath "$buildpacksFilePath"; then
-			echo "C"
-			exit 0
 			core_exitError $core_commandLine_exitCode_FAILURE "There is no heroku '.buildpacks' in configuration folder path '$heroku_buildpacksConfigurationFolderPath'"
 		fi
 		
