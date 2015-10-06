@@ -10,3 +10,6 @@
 [submodule "lib/shellfire/git"]
 	path = lib/shellfire/git
 	url = https://github.com/shellfire-dev/git.git
+[submodule "lib/shellfire/configure"]
+	path = lib/shellfire/configure
+	url = https://github.com/shellfire-dev/configure.git
