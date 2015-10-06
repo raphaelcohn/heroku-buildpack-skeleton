@@ -9,6 +9,8 @@ _program()
 	core_usesIn heroku validate buildpack
     heroku_detect()
     {
+		echo "HELLO WORLD"
+		
 		local heroku_configurationFolderPath="$heroku_buildpack_buildDir"/"$heroku_configurationFolderName"
 		if ! core_path_isReadableAndSearchableFolderPath "$heroku_configurationFolderPath"; then
 			core_exitError $core_commandLine_exitCode_FAILURE "There is no heroku configuration folder '$heroku_configurationFolderName' in BUILD_DIR '$heroku_buildpack_buildDir'"
