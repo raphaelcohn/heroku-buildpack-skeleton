@@ -13,6 +13,7 @@ _program()
 		heroku_configure_register
 		heroku_configure_load
 		
+		heroku_findBuildPackUrl
 		heroku_createAppIfNecessary
 		heroku_setEnvironmentVariables
 		heroku_deploy
