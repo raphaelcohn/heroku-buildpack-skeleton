@@ -125,6 +125,7 @@ _program_hack_around_heroku_not_recursively_checking_out_submodules_for_buildpac
 	# The environment contains the following special variables: USER_LOG_FILE  LOG_TOKEN  RUN_KEY  RECEIVE_DATA  STACK  BUILD_INFO  DEPLOY  LOG_FILE  GERM_PATH  REQUEST_ID  DYNO  SOURCE_VERSION
 	if [ "${DYNO+set}" = 'set' ]; then
 		
+		git --git-dir "$_program_path"/../.git submodule init
 		git --git-dir "$_program_path"/../.git submodule update --init --recursive
 	fi
 }
