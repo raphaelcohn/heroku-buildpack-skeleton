@@ -9,9 +9,6 @@ _program()
 	core_usesIn heroku validate buildpack
     heroku_detect()
     {
-		echo "1"
-		exit 0
-		
 		local heroku_configurationFolderPath="$heroku_buildpack_buildDir"/"$heroku_configurationFolderName"
 		if ! core_path_isReadableAndSearchableFolderPath "$heroku_configurationFolderPath"; then
 			echo "A"
@@ -130,22 +127,25 @@ _program_commandLine_parse()
 
 _program_hack_around_heroku()
 {
-	# (1) Not correctly checking out submodules
 	# Found using 'env' & exit 0
 	# The environment contains the following special variables: USER_LOG_FILE  LOG_TOKEN  RUN_KEY  RECEIVE_DATA  STACK  BUILD_INFO  DEPLOY  LOG_FILE  GERM_PATH  REQUEST_ID  DYNO  SOURCE_VERSION
 	if [ "${DYNO+set}" = 'set' ]; then
-
-		# pdksh / mksh have problems with unsetting a variable that was never set...
-		unset CDPATH 1>/dev/null 2>/dev/null || true
 		
-		cd "$_program_path"/.. 1>/dev/null
-			git submodule update --init --recursive 1>/dev/null 2>/dev/null
-		cd - 1>/dev/null
+		# (1) Not correctly checking out submodules
+		{
+			# pdksh / mksh have problems with unsetting a variable that was never set...
+			unset CDPATH 1>/dev/null 2>/dev/null || true
 		
-	fi
+			cd "$_program_path"/.. 1>/dev/null
+				git submodule update --init --recursive 1>/dev/null 2>/dev/null
+			cd - 1>/dev/null
+		}
 	
-	# (2) There is something wrong in the dependencies logic
-	_program_ignoreDependencies=yes
+		# (2) There is something wrong in the dependencies logic
+		{
+			_program_ignoreDependencies=yes
+		}
+	fi
 }
 _program_hack_around_heroku
 
