@@ -9,6 +9,8 @@ _program()
 	core_usesIn heroku validate configure
     heroku_deploy()
     {
+		heroku_validate_repositoryPathOnceDependenciesInstalled $core_commandLine_exitCode_CONFIG 'setting' 'heroku_repository' "$heroku_repository"
+		
 		heroku_configure_initialise
 		heroku_configure_register
 		heroku_configure_load
@@ -129,8 +131,7 @@ _program_commandLine_processOptionWithArgument()
 	case "$optionName" in
 		
 		r|repository)
-			heroku_validate_repositoryPathAndSetVariable $core_commandLine_exitCode_USAGE 'option' "$optionNameIncludingHyphens" "$optionValue"
-			#heroku_repositoryPath is set by the above function
+			heroku_validate_repository $core_commandLine_exitCode_USAGE 'option' "$optionNameIncludingHyphens" "$optionValue"
 			heroku_repository="$optionValue"
 		;;
 		
@@ -141,11 +142,9 @@ _program_commandLine_validate()
 {
 	if core_variable_isUnset heroku_repository; then
 		heroku_repository="$heroku_repository_default"
-		heroku_validate_repositoryPathAndSetVariable $core_commandLine_exitCode_CONFIG 'default' 'heroku_repository_default' "$heroku_repository_default"
-		#heroku_repositoryPath is set by the above function
+		heroku_validate_repository $core_commandLine_exitCode_CONFIG 'default' 'heroku_repository_default' "$heroku_repository_default"
 	else
-		heroku_validate_repositoryPathAndSetVariable $core_commandLine_exitCode_CONFIG 'configuration setting' 'heroku_repository' "$heroku_repository"
-		#heroku_repositoryPath is set by the above function
+		heroku_validate_repository $core_commandLine_exitCode_CONFIG 'configuration setting' 'heroku_repository' "$heroku_repository"
 	fi
 }
 
