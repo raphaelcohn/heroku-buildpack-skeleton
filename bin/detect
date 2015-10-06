@@ -3,8 +3,6 @@
 # Copyright © 2015 The developers of heroku-skeleton-buildpack. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/raphaelcohn/heroku-skeleton-buildpack/master/COPYRIGHT.
 
 
-echo "HELLO WORLD"
-exit 0
 _program()
 {
 	core_usesIn heroku
@@ -120,5 +118,8 @@ _program_commandLine_parse()
 {
 	heroku_validate_buildDirCommandLineParse "$@"
 }
+
+echo "HELLO WORLD 2"
+exit 0
 
 . "$_program_libPath"/shellfire/core/init.functions "$@"
