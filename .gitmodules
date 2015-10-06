@@ -1,9 +1,9 @@
 [submodule "etc/shellfire/paths.d"]
 	path = etc/shellfire/paths.d
-	url = https://github.com/shellfire-dev/paths.d
+	url = https://github.com/shellfire-dev/paths.d.git
 [submodule "lib/shellfire/core"]
 	path = lib/shellfire/core
-	url = https://github.com/shellfire-dev/core
+	url = https://github.com/shellfire-dev/core.git
 [submodule "lib/shellfire/heroku"]
 	path = lib/shellfire/heroku
 	url = https://github.com/shellfire-dev/heroku.git
