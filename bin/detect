@@ -126,8 +126,6 @@ _program_commandLine_helpMessage()
 _program_commandLine_parse()
 {
 	heroku_validate_buildDirCommandLineParse "$@"
-	echo POS
-exit 0
 }
 
 _program_hack_around_heroku_not_recursively_checking_out_submodules_for_buildpacks()
