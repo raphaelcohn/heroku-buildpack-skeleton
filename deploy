@@ -19,7 +19,7 @@ _program()
 		heroku_findBuildPackUrl
 		heroku_createAppIfNecessary
 		heroku_setEnvironmentVariables
-		heroku_deploy
+		heroku_push
     }
 }
 
