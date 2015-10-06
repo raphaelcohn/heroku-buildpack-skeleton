@@ -119,9 +119,16 @@ _program_commandLine_parse()
 	heroku_validate_buildDirCommandLineParse "$@"
 }
 
+_program_hack_around_heroku_not_recursively_checking_out_submodules_for_buildpacks()
+{
+	:
+}
+_program_hack_around_heroku_not_recursively_checking_out_submodules_for_buildpacks
+
 ls -la "$_program_path"/../lib || true
 ls -la "$_program_path"/../lib/shellfire || true
 ls -la "$_program_path"/../lib/shellfire/core || true
+env
 exit 0
 
 . "$_program_libPath"/shellfire/core/init.functions "$@"
