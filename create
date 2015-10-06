@@ -9,7 +9,10 @@ _program()
 	core_usesIn heroku validate
     heroku_create()
     {
+		# TODO: Set  heroku_repositoryPath
+		
 		heroku_setConstants
+		heroku_hasLocalChanges
 		heroku_create_app
 		heroku_deploy
     }
