@@ -9,10 +9,13 @@ _program()
 	core_usesIn heroku validate configure
     heroku_deploy()
     {
+		heroku_configure_initialise
 		heroku_configure_register
 		heroku_configure_load
 		
-		heroku_createAppIfNecessaryThenDeploy
+		heroku_createAppIfNecessary
+		heroku_setEnvironmentVariables
+		heroku_deploy
     }
 }
 

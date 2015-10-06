@@ -20,10 +20,10 @@ _program()
 		fi
 		
 		# Interferes with https://elements.heroku.com/buildpacks/jessefulton/buildpack-procfile-select
-		local procfilePath="$heroku_buildpacksConfigurationFolderPath"/Procfile
-		if ! core_path_isReadableFilePath "$procfilePath"; then
-			core_exitError $core_commandLine_exitCode_FAILURE "There is no heroku 'Procfile' in configuration folder path '$heroku_buildpacksConfigurationFolderPath'"
-		fi
+		#local procfilePath="$heroku_buildpacksConfigurationFolderPath"/Procfile
+		#if ! core_path_isReadableFilePath "$procfilePath"; then
+		#	core_exitError $core_commandLine_exitCode_FAILURE "There is no heroku 'Procfile' in configuration folder path '$heroku_buildpacksConfigurationFolderPath'"
+		#fi
 		
 		# We take over from https://github.com/heroku/heroku-buildpack-multi
 		local buildpacksFilePath="$heroku_buildpacksConfigurationFolderPath"/.buildpacks
