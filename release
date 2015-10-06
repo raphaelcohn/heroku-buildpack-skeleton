@@ -9,9 +9,7 @@ _program()
 	core_usesIn heroku validate buildpack
     heroku_release()
     {
-		# TODO:We should also create a Procfile at this point...
-		
-		heroku_buildpack_releaseYaml
+		heroku_buildpack_release_delegateToMultiBuildpack
     }
 }
 

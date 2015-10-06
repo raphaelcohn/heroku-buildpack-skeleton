@@ -9,13 +9,10 @@ _program()
 	core_usesIn heroku validate buildpack configure
     heroku_compile()
     {
-		heroku_buildpack_createCacheDirIfNotPresent
-		heroku_buildpack_sourceKnownCompileEnvironmentVariables
-		heroku_buildpack_deployHerokuBuildpackArtifacts
-		
-		# TODO: At this point, we move all resources for other buildpacks into the ROOT
-		# eg for multi, etc
-		# this can also include our Procfile
+		heroku_buildpack_compile_createCacheDirIfNotPresent
+		heroku_buildpack_compile_sourceKnownCompileEnvironmentVariables
+		heroku_buildpack_compile_deployHerokuBuildpackArtifacts
+		heroku_buildpack_compile_delegateToMultiBuildpack
     }
 }
 
