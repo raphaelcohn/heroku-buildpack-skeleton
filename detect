@@ -3,5 +3,6 @@
 # Copyright © 2015 The developers of heroku-skeleton-buildpack. See the COPYRIGHT file in the top-level directory of this distribution and at https://raw.githubusercontent.com/raphaelcohn/heroku-skeleton-buildpack/master/COPYRIGHT.
 
 
+
 printf '%s\n' "heroku-skeleton"
 exit 0
