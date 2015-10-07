@@ -6,7 +6,7 @@
 _program()
 {
 	core_usesIn heroku
-	core_usesIn heroku validate configure
+	core_usesIn heroku toolbelt deploy validate configure
     heroku_deploy()
     {
 		heroku_validate_repositoryPathOnceDependenciesInstalled $core_commandLine_exitCode_CONFIG 'setting' 'heroku_repository' "$heroku_repository"
@@ -16,14 +16,15 @@ _program()
 		heroku_configure_load
 		
 		heroku_initialise
-		heroku_findBuildPackUrl
-		heroku_createAppIfNecessary
+		heroku_toolbelt_initialise
+		heroku_deploy_findBuildPackUrl
+		heroku_deploy_createAppIfNecessary
 		
 		# Failure results in maintainenance mode being on; not a bad thing, really
-		heroku_maintenanceModeEnable
-			heroku_setEnvironmentVariables
-			heroku_push
-		heroku_maintenanceModeDisable
+		heroku_deploy_maintenanceModeEnable
+			heroku_deploy_setEnvironmentVariables
+			heroku_deploy_push
+		heroku_deploy_maintenanceModeDisable
     }
 }
 
