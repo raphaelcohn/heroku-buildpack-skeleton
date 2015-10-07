@@ -9,6 +9,7 @@ _program()
 	core_usesIn heroku validate buildpack configure
     heroku_compile()
     {
+		heroku_buildpack_compile_initialise
 		heroku_buildpack_compile_guardStack
 		heroku_buildpack_compile_createCacheDirIfNotPresent
 		heroku_buildpack_compile_sourceKnownCompileConfigurationVariables
