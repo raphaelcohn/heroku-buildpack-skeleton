@@ -9,6 +9,8 @@ _program()
 	core_usesIn heroku validate buildpack/release
     heroku_release()
     {
+		heroku_initialise
+		
 		heroku_buildpack_release_delegateToMultiBuildpack
     }
 }

@@ -9,6 +9,8 @@ _program()
 	core_usesIn heroku validate buildpack/compile configure
     heroku_compile()
     {
+		heroku_initialise
+		
 		heroku_buildpack_compile_initialise
 		heroku_buildpack_compile_guardStack
 		heroku_buildpack_compile_createCacheDirIfNotPresent
