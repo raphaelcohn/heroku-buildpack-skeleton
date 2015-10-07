@@ -22,6 +22,7 @@ _program()
 		
 		# Failure results in maintainenance mode being on; not a bad thing, really
 		heroku_deploy_maintenanceModeEnable
+			heroku_deploy_setDomains
 			heroku_deploy_setEnvironmentVariables
 			heroku_deploy_push
 		heroku_deploy_maintenanceModeDisable
