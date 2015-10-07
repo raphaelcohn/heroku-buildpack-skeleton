@@ -124,6 +124,10 @@ _program_commandLine_helpMessage()
 
 _program_commandLine_parse()
 {
+	echo BBBB
+
+	exit 0
+	
 	heroku_validate_buildDirCommandLineParse "$@"
 }
 
