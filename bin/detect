@@ -6,30 +6,10 @@
 _program()
 {
 	core_usesIn heroku
-	core_usesIn heroku validate buildpack
+	core_usesIn heroku validate buildpack/detect
     heroku_detect()
     {
-		echo AAAAA
-		exit 0
-		
-		local heroku_configurationFolderPath="$heroku_buildpack_buildDir"/"$heroku_configurationFolderName"
-		if ! core_path_isReadableAndSearchableFolderPath "$heroku_configurationFolderPath"; then
-			core_exitError $core_commandLine_exitCode_FAILURE "There is no heroku configuration folder '$heroku_configurationFolderName' in BUILD_DIR '$heroku_buildpack_buildDir'"
-		fi
-		
-		local heroku_buildpacksConfigurationFolderPath="$heroku_configurationFolderPath"/"$heroku_buildpacksConfigurationFolderName"
-		if ! core_path_isReadableAndSearchableFolderPath "$heroku_configurationFolderPath"; then
-			core_exitError $core_commandLine_exitCode_FAILURE "There is no heroku buildpacks configuration folder '$heroku_buildpacksConfigurationFolderName' in BUILD_DIR/$heroku_configurationFolderName '$heroku_configurationFolderPath'"
-		fi
-		
-		# We take over from https://github.com/heroku/heroku-buildpack-multi
-		local buildpacksFilePath="$heroku_buildpacksConfigurationFolderPath"/.buildpacks
-		if ! core_path_isReadableFilePath "$buildpacksFilePath"; then
-			core_exitError $core_commandLine_exitCode_FAILURE "There is no heroku '.buildpacks' in configuration folder path '$heroku_buildpacksConfigurationFolderPath'"
-		fi
-		
-		printf '%s\n' "$heroku_frameworkName"
-		exit $core_commandLine_exitCode_OK
+		heroku_buildpack_detect
     }
 }
 
@@ -124,10 +104,6 @@ _program_commandLine_helpMessage()
 
 _program_commandLine_parse()
 {
-	echo BBBB
-
-	exit 0
-	
 	heroku_validate_buildDirCommandLineParse "$@"
 }
 
@@ -156,7 +132,5 @@ _program_hack_around_heroku()
 	fi
 }
 _program_hack_around_heroku
-
-set -x
 
 . "$_program_libPath"/shellfire/core/init.functions "$@"
