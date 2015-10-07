@@ -95,6 +95,7 @@ _program_path_find()
 		
 	fi
 }
+
 _program_name='detect'
 _program_namespace='heroku'
 _program_version='unversioned'
@@ -148,5 +149,8 @@ _program_hack_around_heroku()
 	fi
 }
 _program_hack_around_heroku
+
+echo HELLO
+exit 0
 
 . "$_program_libPath"/shellfire/core/init.functions "$@"
