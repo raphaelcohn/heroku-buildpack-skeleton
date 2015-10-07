@@ -109,9 +109,6 @@ _program_commandLine_parse()
 	heroku_validate_parseBuildDir "$1"
 	
 	core_validate_folderPathIsReadableAndSearchableAndWritableOrCanBeCreated $core_commandLine_exitCode_USAGE 'option' 'CACHE_DIR' "$2"
-	pushd "$2"
-		heroku_buildpack_cacheDir="$(pwd)"
-	popd
 	
 	core_validate_folderPathReadableAndSearchable $core_commandLine_exitCode_USAGE 'option' 'ENV_DIR' "$3"
 	pushd "$3"
