@@ -21,58 +21,68 @@ _program()
 _program_path_find()
 {
 	if [ "${_program_fattening_program_path+set}" = 'set' ]; then
-		printf '%s' "$_program_fattening_program_path"
+		printf '%s\n' "$_program_fattening_program_path"
+		
 	elif [ "${0%/*}" = "$0" ]; then
-		# We've been invoked on the PATH or directly by the interpreter (bash progname)
-		# This doesn't work reliably if invoked via the PATH
-		
-		# We could iterate over the PATH, find the first hit, then assume it's /bin => /lib, and go from there...
-		
-		printf '%s' "$(pwd)"
-	else
-		# pdksh / mksh have problems with unsetting a variable that was never set...
-		unset CDPATH 1>/dev/null 2>/dev/null || true
-		
-		if command -v realpath 1>/dev/null 2>/dev/null; then
-			scriptPath=$(realpath "$0")
-			cd "${scriptPath%/*}" 1>/dev/null
-				pwd
-			cd - 1>/dev/null
-			unset scriptPath
-			return 0
+
+		# We've been invoked by the interpreter as, say, bash program
+		if [ -r "$0" ]; then
+			pwd -P
+		# Clutching at straws; probably run via a download, anonymous script, etc, weird execve, etc
+		else
+			printf '\n'
 		fi
 		
-		originalPath="$(pwd)"
-		scriptPath="$0"
-		parentFolderPath=''
-		linkName=''
+	else
+	
+		# We've been invoked with a relative or absolute path (also when invoked via PATH in a shell)
 		
-		# We cd out of our directory; we may not be able to cd back into it later. Oh well.
-		while [ -L "$scriptPath" ]
-		do
-			parentFolderPath="${scriptPath%/*}"
-			linkName="${scriptPath##*/}"
-			
-			cd "$parentFolderPath" 1>/dev/null
-			scriptPath="$(readlink "$linkName")"
-		done
+		_program_path_find_parentPath()
+		{
+			parentPath="${scriptPath%/*}"
+			if [ -z "$parentPath" ]; then
+				parentPath='/'
+			fi
+			cd "$parentPath" 1>/dev/null
+		}
 		
-		parentFolderPath="${scriptPath%/*}"
-		cd "$parentFolderPath" 1>/dev/null
+		# pdksh / mksh have problems with unsetting a variable that was never set...
+		if [ "${CDPATH+set}" = 'set' ]; then
+			unset CDPATH
+		fi
 		
-		# Output the path
-		pwd
+		if command -v realpath 1>/dev/null 2>/dev/null; then
+			(
+				scriptPath="$(realpath "$0")"
+				
+				_program_path_find_parentPath
+				pwd -P
+			)
+		elif command -v readlink 1>/dev/null 2>/dev/null; then
+			(
+				scriptPath="$0"
+				
+				while [ -L "$scriptPath" ]
+				do
+					_program_path_find_parentPath
+					scriptPath="$(readlink "$scriptPath")"
+				done
+
+				_program_path_find_parentPath
+				pwd -P
+			)
+		else
+			# This approach will failure in corner cases where the script itself is a symlink in a path not parallel with the concrete script
+			(
+				scriptPath="$0"
+				
+				_program_path_find_parentPath
+				pwd -P
+			)
+		fi
 		
-		cd "$originalPath" 1>/dev/null
-		
-		# Unset variables; we can't use locals as ksh/yash support not yet init'd
-		unset originalPath
-		unset scriptPath
-		unset parentFolderPath
-		unset linkName
 	fi
 }
-
 _program_name='compile'
 _program_namespace='heroku'
 _program_version='unversioned'
