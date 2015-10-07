@@ -18,8 +18,12 @@ _program()
 		heroku_initialise
 		heroku_findBuildPackUrl
 		heroku_createAppIfNecessary
-		heroku_setEnvironmentVariables
-		heroku_push
+		
+		# Failure results in maintainenance mode being on; not a bad thing, really
+		heroku_maintenanceModeEnable
+			heroku_setEnvironmentVariables
+			heroku_push
+		heroku_maintenanceModeDisable
     }
 }
 

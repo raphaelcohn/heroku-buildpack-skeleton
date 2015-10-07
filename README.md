@@ -2,10 +2,18 @@
 
 Skeleton buildpack; experimental.
 
-* Next step: source snippets in the .heroku.rc.d folder to control the detect / compile / release process on a per-app basis
 * Next step: Look at integrating support for shellfire dependency extraction (essentially, get a list of packages)
-* Next step: domains
+* To configure via source control
+  * domains (heroku domains)
+  * SSL endpoints (heroku certs)
+  * features (preboot) (heroku features)
+  * .profile.d scripts (if appropriate)
+  * snippets of detect/release/compile (source'd)
+    * need to find a way to allow the use of additional shellfire modules
+  * deleting of unused environment variables
+     * Include a folder of 'should be present' env variable files
+  * profiles, eg of different env vars; look at how pipelines work  
 * Replace configuration refspec with code that detects current git branch / commitish? That way when branching we don't need to modify code for heroku pushes...
 * Consider using maintenance mode during deployment to allow time for migration?
 * Heroku pipelines
-* How to delete unused configuration variables?
+* There doesn't seem to be a way to change an app's region...
