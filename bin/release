@@ -6,7 +6,7 @@
 _program()
 {
 	core_usesIn heroku
-	core_usesIn heroku validate buildpack
+	core_usesIn heroku validate buildpack/release
     heroku_release()
     {
 		heroku_buildpack_release_delegateToMultiBuildpack

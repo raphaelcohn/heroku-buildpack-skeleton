@@ -6,7 +6,7 @@
 _program()
 {
 	core_usesIn heroku
-	core_usesIn heroku validate buildpack configure
+	core_usesIn heroku validate buildpack/compile configure
     heroku_compile()
     {
 		heroku_buildpack_compile_initialise
@@ -15,6 +15,8 @@ _program()
 		heroku_buildpack_compile_sourceKnownCompileConfigurationVariables
 		heroku_buildpack_compile_deployHerokuBuildpackArtifacts
 		heroku_buildpack_compile_delegateToMultiBuildpack
+		
+		# Available env variables include LOG_TOKEN USER_LOG_FILE RUN_KEY RECEIVE_DATA SOURCE_VERSION BUILD_INFO STACK DEPLOY LOG_FILE REQUEST_ID DYNO
     }
 }
 
