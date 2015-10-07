@@ -113,7 +113,7 @@ _program_hack_around_heroku()
 	# The environment contains the following special variables: USER_LOG_FILE  LOG_TOKEN  RUN_KEY  RECEIVE_DATA  STACK  BUILD_INFO  DEPLOY  LOG_FILE  GERM_PATH  REQUEST_ID  DYNO  SOURCE_VERSION
 	if [ "${DYNO+set}" = 'set' ]; then
 		
-		# (1) Not correctly checking out submodules
+		# Not correctly checking out submodules
 		{
 			# pdksh / mksh have problems with unsetting a variable that was never set...
 			if [ "${CDPATH+set}" = 'set' ]; then
@@ -123,11 +123,6 @@ _program_hack_around_heroku()
 			cd "$_program_path"/.. 1>/dev/null
 				git submodule update --init --recursive 1>/dev/null 2>/dev/null
 			cd - 1>/dev/null
-		}
-	
-		# (2) There is something wrong in the dependencies logic
-		{
-			_program_ignoreDependencies=yes
 		}
 	fi
 }
