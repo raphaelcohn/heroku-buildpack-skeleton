@@ -17,3 +17,4 @@ Skeleton buildpack; experimental.
 * Consider using maintenance mode during deployment to allow time for migration?
 * Heroku pipelines
 * There doesn't seem to be a way to change an app's region...
+* Detect git push failure with final line containing `error: failed to push some refs to 'https://git.heroku.com/heroku-skeleton.git'`?
