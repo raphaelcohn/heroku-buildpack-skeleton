@@ -20,6 +20,7 @@ _program()
 		heroku_buildpack_compile_removeNoLongerUsedLinuxbrewBuildDependencies
 		heroku_buildpack_compile_installLinuxbrewBuildDependencies
 		heroku_buildpack_compile_makePackageManagerLinuxbrew
+		heroku_buildpack_compile_installBuildRootOntoPath
 		heroku_buildpack_compile_sourceCompileExtensions
 		heroku_buildpack_compile_delegateToOtherBuildpacks
 		
