@@ -12,11 +12,7 @@ _program()
 		heroku_buildpack_detect_initialise
 		heroku_buildpack_detect_us
 		heroku_buildpack_detect_deployHerokuBuildpackArtifacts
-		
-		echo HELLO
-		exit 0
-		
-		heroku_buildpack_detect_delegateToOtherBuildpacks
+		#heroku_buildpack_detect_delegateToOtherBuildpacks
 		heroku_buildpack_detect_finish
     }
 }
