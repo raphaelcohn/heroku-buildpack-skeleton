@@ -12,7 +12,7 @@ _program()
 		heroku_buildpack_detect_initialise
 		heroku_buildpack_detect_us
 		heroku_buildpack_detect_deployHerokuBuildpackArtifacts
-		heroku_buildpack_detect_delegateToOtherBuildpacks
+		#heroku_buildpack_detect_delegateToOtherBuildpacks
 		heroku_buildpack_detect_finish
     }
 }
