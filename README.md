@@ -5,7 +5,7 @@ A [heroku] buildpack built with [shellfire] which can be added as a submodule to
 * Allows you to check in all your app config (eg names, regions, etc)
   * Just put them into `.heroku.rc.d/heroku.conf`
   * Or add them as snippets in `.heroku.rc.d/heroku.conf.d`, if there are things you need to `.gitignore` (eg secret keys)
-  * Put environment variables in `.heroku.rc.d/enviro`
+  * Put configuration variables in `.heroku.rc.d/configuration-variables`
 * A `deploy` script to create or re-deploy your app, which adjusts app settings to those in source control
 * Ensures no dotfiles (eg `.buildpacks`, `Procfile`) pollute your root of your repository
   * Everything's in a nice `.heroku.rc.d` folder
