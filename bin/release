@@ -6,12 +6,13 @@
 _program()
 {
 	core_usesIn heroku
-	core_usesIn heroku validate buildpack/release
+	core_usesIn heroku validate buildpack buildpack/release
     heroku_release()
     {
 		heroku_initialise
 		
-		heroku_buildpack_release_delegateToMultiBuildpack
+		heroku_buildpack_initialise
+		heroku_buildpack_release_delegateToOtherBuildpacks
     }
 }
 

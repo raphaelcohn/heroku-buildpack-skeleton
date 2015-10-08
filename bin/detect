@@ -6,12 +6,13 @@
 _program()
 {
 	core_usesIn heroku
-	core_usesIn heroku validate buildpack/detect
+	core_usesIn heroku validate buildpack buildpack/detect
     heroku_detect()
     {
-		heroku_initialise
-		
-		heroku_buildpack_detect
+		heroku_buildpack_detect_initialise
+		heroku_buildpack_detect_us
+		heroku_buildpack_detect_delegateToOtherBuildpacks
+		heroku_buildpack_detect_finish
     }
 }
 
