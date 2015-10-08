@@ -59,3 +59,46 @@ heroku_buildpack_compileMisc()
 	#
 	# exit 0
 }
+
+_heroku_buildpack_compile_delegateToMultiBuildpack_processBuildpackUrl()
+{
+	local url="${buildpackUrl%#*}"
+	local branch="${buildpackUrl#*#}"
+	
+	if [ -z "$url" ]; then
+		return 0
+	fi
+	
+	if [ "$url" = "$branch" ]; then
+		branch=''
+	fi
+	
+	local filename="$(core_compability_basename "$url")"
+	local allFileExtensions="${filename#*.}"
+	if [ ${#allFileExtensions} = ${#filename} ]; then
+		allFileExtensions=''
+	fi
+	
+	case "$allFileExtensions" in
+		
+		tar.gz|tgz)
+			:
+		;;
+		
+		git)
+			# Need to use the cache dir if possible... but how do we name our asset in it?
+			git clone "$url" "$SOME_DIR"
+			if [ -n "$branch" ]; then
+				pushd "$SOME_DIR"
+					git checkout "$branch"
+				popd
+			fi
+		;;
+		
+		*)
+			heroku_buildpack_compile_notesMessages "Do not understand how to extract URLs like '$url' with file extension '$allFileExtensions' (from '$buildpackUrl')"
+		;;
+		
+	esac
+	# check the file extension, if .git, then treat as a git repo
+}
