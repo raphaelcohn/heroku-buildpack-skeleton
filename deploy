@@ -24,7 +24,8 @@ _program()
 		heroku_deploy_maintenanceModeEnable
 			heroku_deploy_setPreboot
 			heroku_deploy_setDomains
-			heroku_deploy_setEnvironmentVariables
+			core_message WARN "FIX heroku_deploy_setEnvironmentVariables"
+			#heroku_deploy_setEnvironmentVariables
 			heroku_deploy_push
 		heroku_deploy_maintenanceModeDisable
     }
