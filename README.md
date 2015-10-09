@@ -100,10 +100,12 @@ Of course, that means there's another file in your root, but at least it's a use
 											Instead of setting heroku config:set EXAMPLE VALUE on the command line, and losing control...
 											Trailing new lines are stripped
 											
-		extensions/							Put extensions in here as scripts ending '.compile.sh'
-			example.compile.sh				These scripts are _sourced_ ('. ./example.compile.sh')
+		extensions/							Put extensions in here as folders ending '.compile.d'; run in shell glob expansion order
+			example.compile.d/				Example; could be a git submodule
+				example.compile.sh			All scripts ending '.compile.sh' are sourced ('. ./example.compile.sh') in shell glob expansion order
 											If they want to define functions, they should do so in the namespace '_heroku_extension_SCRIPTNAME', eg
 											_heroku_extension_example() { echo hello; }
+											Working directory (pwd) will be the script's parent (eg example.compile.d/)
 											
 		run.profile.d/						Put any .profile.d scripts to deploy in here; make sure they end in '.sh'
 			example.sh						Example .profile.d script
