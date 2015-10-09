@@ -10,7 +10,7 @@ _program()
     heroku_compile()
     {
 		heroku_initialise
-		
+		set -x
 		heroku_buildpack_compile_initialise
 		heroku_buildpack_compile_guardStack
 		heroku_buildpack_compile_createCacheDirIfNotPresent
