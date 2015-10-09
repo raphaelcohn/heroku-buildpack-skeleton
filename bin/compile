@@ -29,6 +29,7 @@ _program()
 		heroku_buildpack_compile_sourceCompileExtensions
 		heroku_buildpack_compile_delegateToOtherBuildpacks
 		
+		heroku_buildpack_compile_stripRunLinuxbrew
 		heroku_buildpack_compile_clean
 		heroku_buildpack_compile_makeReadOnly
     }
