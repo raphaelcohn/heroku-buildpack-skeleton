@@ -14,6 +14,7 @@ A [heroku] buildpack built with [shellfire] which can be added as a submodule to
     * so that previously installed recipes are re-used
 	* so that dependencies that are no longer needed are removed
 	* works better than `apt`, etc as it ensures packages are correctly relocated
+	* strips it, so your Dyno is smaller and has less vulnerabilities
   * A source-control managed root akin to `/opt` in `.heroku.rc.d/build.root`
     * allows you to check in [shellfire] and other scripts to source control
 	* to use git submodules to manage private binary dependencies
@@ -22,6 +23,10 @@ A [heroku] buildpack built with [shellfire] which can be added as a submodule to
 * A replacement for [heroku-buildpack-multi] which works by looking for git submodule buildpacks
   * And correctly separates detect, compile and release
 * A place to store `.profile.d` scripts
+* Makes the `BUILD_DIR` contents read-only
+  * Removes owner, group and world writable from all files and folders
+  * Installs a `BUILD_DIR/tmp` folder which is read-write-execute
+  * Cleans up `BUILD_DIR`, removing `.heroku.rc.d`, `deploy`, `COPYRIGHT`, `LICENCE` and `README.md` files (stuff typical from GitHub hosted projects)
 
 MIT licensed. To get going with an example, check out [heroku-buildpack-skel-example].
 
@@ -149,6 +154,11 @@ The folders are prepended to the relevant path variables which are then `export`
 * The `lib` folder is prepended to `LD_LIBRARY_PATH`
 
 This design is most useful for binaries written in interpreted code, eg [shellfire] ones.
+
+
+### Environment Variables Available when `source`'ing compile extensions
+
+* `LOG_TOKEN USER_LOG_FILE RUN_KEY RECEIVE_DATA SOURCE_VERSION BUILD_INFO STACK DEPLOY LOG_FILE REQUEST_ID DYNO`
 
 
 ## Known Issues
