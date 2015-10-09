@@ -10,13 +10,13 @@ _program()
     heroku_compile()
     {
 		heroku_initialise
-		set -x
+		
 		heroku_buildpack_compile_initialise
 		heroku_buildpack_compile_guardStack
 		heroku_buildpack_compile_createCacheDirIfNotPresent
 		heroku_buildpack_compile_createOurPrivateCacheDirIfNotPresent
 		heroku_buildpack_compile_sourceKnownCompileConfigurationVariables
-		
+		set -x
 		heroku_buildpack_compile_linuxbrew 'build'
 		heroku_buildpack_compile_installBuildRootOntoPath
 		
