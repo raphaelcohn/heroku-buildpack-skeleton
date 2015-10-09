@@ -17,14 +17,10 @@ _program()
 		heroku_buildpack_compile_createOurPrivateCacheDirIfNotPresent
 		heroku_buildpack_compile_sourceKnownCompileConfigurationVariables
 		
-		heroku_buildpack_compile_installOrUpdateLinuxbrewInCacheForBuildDependencies
-		heroku_buildpack_compile_removeNoLongerUsedLinuxbrewBuildDependencies
-		heroku_buildpack_compile_installLinuxbrewBuildDependencies
+		heroku_buildpack_compile_linuxbrew 'build'
 		heroku_buildpack_compile_installBuildRootOntoPath
 		
-		heroku_buildpack_compile_installOrUpdateLinuxbrewInCacheForRunDependencies
-		heroku_buildpack_compile_removeNoLongerUsedLinuxbrewRunDependencies
-		heroku_buildpack_compile_installLinuxbrewRunDependencies
+		heroku_buildpack_compile_linuxbrew 'run'
 		heroku_buildpack_compile_installRunRootOntoPath
 		
 		heroku_buildpack_compile_installProfileDScripts

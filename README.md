@@ -150,22 +150,42 @@ The folders are prepended to the relevant path variables which are then `export`
 
 This design is most useful for binaries written in interpreted code, eg [shellfire] ones.
 
+
+## Known Issues
+
+* When changing the installed production dependencies for [linuxbrew] old taps are left behind even when their are no known formulæ that are needed from these taps
+  * This is weakness of [linuxbrew], which doesn't have (unlike `apt`) anyway of detecting automatically installed packages or taps
+* When running `./deploy`, we detect if an application has been previously created by checking the git remotes. This doesn't work if a second user clones the repo.
+* When running all `detect` proceses in buildpacks, the resultant YAML isn't merged together but the last run buildpack's YAML is used (or if none produced, a default)
+  * Merging YAML is a hard problem that would require some bespoke non-shellscript code
+* The use of app names precludes the practice of naming apps differently for different build environments
+  * This is probably fixable by defining a subdomain and 'prefixes' for different environments
+  * It is also fixable by having different `.heroku.rc.d/heroku/*.conf` snippets for different branches, but only if branches are long-lived
+* Deployment failure isn't detected and `./deploy` exits with code `0`
+  * Detect git push failure with the final line containing `error: failed to push some refs to 'https://git.heroku.com/heroku-skeleton.git'`, say?
+
+
 ## TODO
 
+* Replace the use of the Heroku Toolbelt with `curl`
 * xxxx: source snippets, allow use of subfolders so can be stored in source control as submodules and re-used...
-* Actually do linuxbrew for runtime
+* linuxbrew caching for runtime dependencies
+* linuxbrew pinning of entire taps
+* linuxbrew upgrade & cleanup
+* linuxbrew production stripping
+* Need to find a way to allow the use of additional shellfire modules for source'd snippets
 * Look at integrating support for shellfire dependency extraction (essentially, get a list of packages)
   * Test it out with banias and swaddle
 * To configure via source control
   * SSL endpoints (heroku certs)
   * deleting of unused environment variables
      * Include a folder of 'should be present' env variable files
-  * profiles, eg of different env vars; look at how pipelines work  
-* Need to find a way to allow the use of additional shellfire modules for source'd snippets
+  * per-environment configuration variables
 * Replace configuration refspec with code that detects current git branch / commitish? That way when branching we don't need to modify code for heroku pushes...
-* Heroku pipelines
-* Detect git push failure with final line containing `error: failed to push some refs to 'https://git.heroku.com/heroku-skeleton.git'`?
-* Merge YAML from multi-buildpacks for release
+* Explore whether we can adopt Heroku pipelines
+
+
+
 
 
 [heroku-buildpack-skeleton]: https://github.com/raphaelcohn/heroku-buildpack-skeleton "heroku-buildpack-skeleton homepage"
